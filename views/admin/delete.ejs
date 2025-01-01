@@ -1,0 +1,122 @@
+<style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+    }
+
+    .back {
+      font-size: 20px;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .card {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+
+    .image-placeholder {
+      width: 100px;
+      height: 100px;
+      background: #eaeaea;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+    }
+
+    .content {
+      flex-grow: 1;
+      margin-left: 20px;
+    }
+
+    .content h3 {
+      margin: 0;
+    }
+
+    .delete-btn {
+      padding: 10px 20px;
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .delete-btn:hover {
+      background: #444;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <span class="back">&larr;</span>
+      <div class="title">DELETE TRANSAKSI</div>
+    </div>
+    <div class="card">
+      <div class="image-placeholder">
+        <img src="#" alt="Image" style="display: none;">
+      </div>
+      <div class="content">
+        <h3>PAKET 1</h3>
+        <p>ID: <span id="id">#29739</span></p>
+        <p>Nama: <span id="name">Imron Rosady</span></p>
+        <p>Tanggal: <span id="date">20 Agustus 2019</span></p>
+      </div>
+      <button class="delete-btn" onclick="deleteTransaction()">DELETE</button>
+    </div>
+  </div>
+
+  <script>
+    async function fetchTransaction() {
+      const response = await fetch('/api/transaction'); // Ganti dengan endpoint server Anda
+      const data = await response.json();
+
+      // Update UI
+      document.getElementById('id').textContent = `#${data.id}`;
+      document.getElementById('name').textContent = data.name;
+      document.getElementById('date').textContent = data.date;
+    }
+
+    async function deleteTransaction() {
+      const transactionId = document.getElementById('id').textContent.slice(1);
+
+      const response = await fetch(`/api/transaction/${transactionId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        alert('Transaction deleted successfully');
+      } else {
+        alert('Failed to delete transaction');
+      }
+    }
+
+    fetchTransaction();
+  </script>

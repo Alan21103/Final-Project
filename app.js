@@ -38,14 +38,26 @@ app.use('/', authRoutes);
 
 app.set('view engine', 'ejs');
 
+app.get('/admin/transaksi', isAuthenticated, (req, res) => {
+    res.render('admin/transaksi', {
+        layout: 'layouts/main-layouts.ejs'
+    });
+});
+
+app.get('/admin/bundling', isAuthenticated, (req, res) => {
+    res.render('admin/bundling', {
+        layout: 'layouts/main-layouts.ejs'
+    });
+});
+
 app.get('/', isAuthenticated, (req, res) => {
-    res.render('index', {
+    res.render('customer/index', {
         layout: 'layouts/main-layouts.ejs'
     });
 });
 
 app.get('/contact', isAuthenticated, (req, res) => {
-    res.render('contact', {
+    res.render('customer/contact', {
         layout: 'layouts/main-layouts.ejs'
     });
 });
