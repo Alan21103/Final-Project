@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Hewan</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            max-width: 900px;
+            margin-top: 50px;
+        }
+
+        .form-group input {
+            border-radius: 0.5rem;
+        }
+
+        .btn {
+            border-radius: 0.5rem;
+        }
+
+        .card {
+            margin-top: 30px;
+            border-radius: 1rem;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            border-top-left-radius: 1rem;
+            border-top-right-radius: 1rem;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .todo-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            margin-bottom: 1rem;
+            padding: 10px;
+            border-radius: 0.5rem;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .todo-list-item:hover {
+            background-color: #f1f1f1;
+        }
+
+        .todo-list-item button {
+            border-radius: 0.5rem;
+        }
+
+        .todo-item-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .todo-item-text span {
+            font-weight: normal;
+            font-size: 1rem;
+        }
+
+        .todo-actions button {
+            margin-left: 5px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center text-black font-weight-bold">Daftar Hewan</h1>
+
+        <!-- Form untuk menambahkan/menyunting hewan -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Masukkan Data Hewan</h5>
+            </div>
+            <div class="card-body">
+                <form id="addHewanForm">
+                    <div class="form-group">
+                        <label for="namaHewan">Nama Hewan</label>
+                        <input type="text" id="namaHewan" class="form-control" placeholder="Nama Hewan" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="jumlahHewan">Jumlah Hewan</label>
+                        <input type="number" id="jumlahHewan" class="form-control" placeholder="Jumlah Hewan" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Tambah Hewan</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Daftar hewan -->
+        <ul id="todoList" class="list-unstyled mt-4">
+            <!-- List akan diisi oleh JavaScript -->
+        </ul>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            let currentEditId = null;
+
+            // Fungsi untuk memuat daftar hewan
+            function loadTasks() {
+                $.ajax({
+                    url: '/hewan',
+                    type: 'GET',
+                    success: function (hewan) {
+                        const list = $('#todoList');
+                        list.empty(); // Kosongkan daftar sebelum memuat ulang
+                        hewan.forEach(item => {
+                            const listItem = `
+                                <li class="todo-list-item">
+                                    <div class="todo-item-text">
+                                        <strong>${item.nama_hewan}</strong> 
+                                        <span>Jumlah: ${item.jumlah_hewan}</span>
+                                    </div>
+                                    <div class="todo-actions">
+                                        <button class="btn btn-warning btn-sm editBtn" data-id="${item.id}" data-nama="${item.nama_hewan}" data-jumlah="${item.jumlah_hewan}">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </button>
+                                        <button class="btn btn-danger btn-sm deleteBtn" data-id="${item.id}">
+                                            <i class="fas fa-trash-alt"></i> Hapus
+                                        </button>
+                                    </div>
+                                </li>
+                            `;
+                            list.append(listItem);
+                        });
+                    },
+                    error: function (error) {
+                        console.error('Error loading tasks:', error.responseText);
+                    }
+                });
+            }
+
+            // Fungsi untuk menambahkan/menyunting hewan
+            $('#addHewanForm').on('submit', function (e) {
+                e.preventDefault();
+
+                const namaHewan = $('#namaHewan').val().trim();
+                const jumlahHewan = parseInt($('#jumlahHewan').val(), 10);
+
+                // Pastikan namaHewan dan jumlahHewan valid
+                if (!namaHewan || !jumlahHewan) {
+                    alert('Nama hewan dan jumlah hewan harus diisi!');
+                    return;
+                }
+
+                const url = currentEditId ? `/hewan/${currentEditId}` : '/hewan';
+                const type = currentEditId ? 'PUT' : 'POST';
+
+                // Mengirim data ke server
+                $.ajax({
+                    url: url,
+                    type: type,
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        nama_hewan: namaHewan,
+                        jumlah_hewan: jumlahHewan
+                    }),
+                    success: function (response) {
+                        alert('Hewan berhasil disimpan!');
+                        currentEditId = null; // Reset ID
+                        $('#addHewanForm')[0].reset(); // Clear form
+                        loadTasks(); // Muat ulang daftar hewan
+                    },
+                    error: function (error) {
+                        alert('Terjadi kesalahan');
+                        console.error('Error:', error.responseText);
+                    }
+                });
+            });
+
+            // Fungsi untuk menghapus hewan
+            $(document).on('click', '.deleteBtn', function () {
+                const id = $(this).data('id');
+                $.ajax({
+                    url: `/hewan/${id}`,
+                    type: 'DELETE',
+                    success: function () {
+                        loadTasks(); // Muat ulang daftar setelah penghapusan
+                    },
+                    error: function (error) {
+                        console.error('Error deleting task:', error.responseText);
+                    }
+                });
+            });
+
+            // Fungsi untuk mengedit hewan
+            $(document).on('click', '.editBtn', function () {
+                const id = $(this).data('id');
+                const nama = $(this).data('nama');
+                const jumlah = $(this).data('jumlah');
+
+                // Set form dengan nilai yang ada
+                $('#namaHewan').val(nama);
+                $('#jumlahHewan').val(jumlah);
+
+                // Set current edit ID
+                currentEditId = id;
+                $('button[type="submit"]').text('Simpan Perubahan');
+            });
+
+            // Muat daftar saat halaman pertama kali diakses
+            loadTasks();
+        });
+    </script>
+</body>
+</html>

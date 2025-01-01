@@ -1,0 +1,215 @@
+<div class="container-todo mt-5">
+    <h1 class="text-center">Todo List</h1>
+
+    <!-- Add Button -->
+    <div class="text-center my-4">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">Add Todo</button>
+    </div>
+
+    <!-- Todo Grid -->
+    <div id="todoGrid" class="row">
+        <!-- Dynamic content will be inserted here -->
+    </div>
+
+    <!-- Add Modal -->
+    <div id="addModal" class="modal fade" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLabel">Add Todo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addTodoForm" class="my-4" enctype="multipart/form-data">
+                        <div class="input-group">
+                            <input
+                                type="text"
+                                id="newTask"
+                                class="form-control"
+                                placeholder="Add a new task..."
+                                required
+                            />
+                            <input
+                                type="file"
+                                id="newImage"
+                                name="image"
+                                class="form-control"
+                                accept="image/*"
+                            />
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary">Add Task</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal fade" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Todo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editTodoForm" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="editTask">Task</label>
+                            <input type="text" id="editTask" class="form-control" required>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="editImage">Image</label>
+                            <input type="file" id="editImage" name="image" class="form-control" accept="image/*">
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ul id="todoList" class="list-group">
+    <% todos.forEach(todo => { %>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <span class="<%= todo.completed ? 'completed' : '' %>">
+          <%= todo.task %>
+        </span>
+        <% if (todo.image_url) { %>
+          <img src="<%= todo.image_url %>" alt="Todo Image" width="50" height="50" class="ml-2" />
+        <% } %>
+        <div>
+          <button class="btn btn-sm btn-success mr-2 editBtn" data-id="<%= todo.id %>">
+            Edit
+          </button>
+          <button class="btn btn-sm btn-danger deleteBtn" data-id="<%= todo.id %>">
+            Delete
+          </button>
+        </div>
+      </li>
+    <% }); %>
+</ul>
+
+ <!-- footer -->
+ <footer>
+    <p class="text-center">2024 directed by Alan</p>
+</footer>
+<!-- end footer -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        const fetchTodos = () => {
+            $.ajax({
+                url: 'http://localhost:3000/todos',
+                type: 'GET',
+                success: function (todos) {
+                    const todoGrid = $('#todoGrid');
+                    todoGrid.empty(); // Hapus elemen lama untuk mencegah duplikasi
+                    todos.forEach(todo => {
+                        const todoCard = `
+                    <div class="col-6 col-md-3 mb-3">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h5 class="card-title">${todo.task}</h5>
+                                <button class="btn btn-sm btn-success editBtn" data-id="${todo.id}">Edit</button>
+                                <button class="btn btn-sm btn-danger deleteBtn" data-id="${todo.id}">Delete</button>
+                            </div>
+                        </div>
+                    </div>`;
+                        todoGrid.append(todoCard);
+                    });
+                },
+                error: function (error) {
+                    console.error('Error fetching todos:', error.responseText);
+                }
+            });
+        };
+
+
+        fetchTodos();
+
+          // Add new todo
+          $('#addTodoForm').on('submit', function (e) {
+                e.preventDefault();
+                const task = $('#newTask').val().trim();
+                const image = $('#newImage')[0].files[0];
+
+                if (task) {
+                    const formData = new FormData();
+                    formData.append('task', task);
+                    formData.append('image', image);
+
+                    $.ajax({
+                        url: '/todos',
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (newTodo) {
+                            fetchTodos();
+                            $('#addModal').modal('hide');
+                        },
+                        error: function (error) {
+                            console.error("Error adding task:", error.responseText);
+                        }
+                    });
+                }
+            });
+
+        let editId = null;
+        $(document).on('click', '.editBtn', function () {
+            editId = $(this).data('id');
+            const currentTask = $(this).closest('.card').find('.card-title').text();
+            $('#editTask').val(currentTask);
+            $('#editModal').modal('show');
+        });
+
+        $('#editTodoForm').on('submit', function (e) {
+            e.preventDefault();
+                const task = $('#editTask').val().trim();
+                const image = $('#editImage')[0].files[0];
+
+                if (task) {
+                    const formData = new FormData();
+                    formData.append('task', task);
+                    if (image) {
+                        formData.append('image', image);
+                    }
+
+                    $.ajax({
+                        url: `http://localhost:3000/todos/${editId}`,
+                        type: 'PUT',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function () {
+                            fetchTodos();
+                            $('#editModal').modal('hide');
+                        },
+                        error: function (error) {
+                            console.error('Error updating task:', error.responseText);
+                        }
+                    });
+                }
+            });
+
+        $(document).on('click', '.deleteBtn', function () {
+            const id = $(this).data('id');
+            $.ajax({
+                url: `http://localhost:3000/todos/${id}`,
+                type: 'DELETE',
+                success: function () {
+                    fetchTodos();
+                },
+                error: function (error) {
+                    console.error('Error deleting task:', error.responseText);
+                }
+            });
+        });
+    });
+</script>

@@ -1,0 +1,65 @@
+<!-- Video Background (Opsional) -->
+<video autoplay muted loop>
+  <source src="/image/71122-537102350_small.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<!-- Container untuk elemen-elemen Sign Up -->
+<div class="login-container">
+  <div class="login-card">
+    
+    <!-- Container Gambar -->
+    <div class="avatar">
+      <img src="/image/download.png" alt="Avatar Image"/>
+    </div>
+
+    <!-- Judul halaman Sign Up -->
+    <h2>Sign Up</h2>
+    <!-- Subjudul selamat datang -->
+    <h3>Selamat Bergabung Orange Hotel</h3>
+
+    <!-- Sign Up Form -->
+    <form action="/signup" method="POST" class="login-form">
+      <!-- Kotak input untuk username -->
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Username" name="username" required />
+        <span class="input-group-text"><i class="bi bi-person"></i></span>
+      </div>
+
+      <!-- Kotak input untuk email -->
+      <div class="input-group">
+        <input type="email" class="form-control" placeholder="Email" name="email" required />
+        <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+      </div>
+
+      <!-- Kotak input untuk password -->
+      <div class="input-group">
+        <input type="password" class="form-control" placeholder="Password" name="password" required />
+        <span class="input-group-text"><i class="bi bi-lock"></i></span>
+      </div>
+
+      <!-- Konfirmasi Password -->
+      <div class="input-group">
+        <input type="password" class="form-control" placeholder="Confirm Password" name="confirmPassword" required />
+        <span class="input-group-text"><i class="bi bi-lock"></i></span>
+      </div>
+
+      <!-- Tombol submit Sign Up -->
+      <input class="btn-signup" type="submit" value="Sign Up" />
+    </form>
+
+    <!-- Link ke halaman login jika sudah punya akun -->
+    <p>Sudah punya akun? <a href="/login">Login di sini</a>.</p>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+      const currentPath = window.location.pathname;
+
+      // Sembunyikan navbar pada halaman login dan signup
+      if (currentPath === '/login' || currentPath === '/signup') {
+          document.querySelector('.navbar').style.display = 'none';
+      }
+  });
+</script>

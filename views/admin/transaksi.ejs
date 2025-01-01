@@ -1,0 +1,41 @@
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">LIST TRANSAKSI</h2>
+    <div class="input-group mb-4">
+        <span class="input-group-text bg-light border-0">
+            <i class="bi bi-search"></i>
+        </span>
+        <input type="text" class="form-control border-0" placeholder="Search Transaksi">
+    </div>
+    <table class="table table-bordered text-center">
+        <thead class="table-header">
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>DATE</th>
+                <th>TYPE</th>
+                <th>TOTAL</th>
+                <th>ACTION</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (transactions.length > 0) { %>
+                <% transactions.forEach(transaction => { %>
+                    <tr>
+                        <td><%= transaction.id %></td>
+                        <td><%= transaction.name %></td>
+                        <td><%= transaction.formatted_date %></td>
+                        <td><span class="rounded-pill"><%= transaction.type %></span></td>
+                        <td>Rp <%= transaction.total.toLocaleString('id-ID', { minimumFractionDigits: 2 }) %></td>
+                        <td><button class="btn-delete"><i class="bi bi-trash"></i></button></td>
+                    </tr>
+                <% }) %>
+            <% } else { %>
+                <tr>
+                    <td colspan="6">Tidak ada data transaksi.</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>

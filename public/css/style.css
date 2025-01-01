@@ -1,0 +1,561 @@
+/* Navbar Styling */
+.navbar {
+  background: rgb(0, 0, 0);
+  background: -moz-linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(1, 154, 155, 1) 50%,
+    rgba(107, 50, 161, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(1, 154, 155, 1) 50%,
+    rgba(107, 50, 161, 1) 100%
+  );
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(1, 154, 155, 1) 50%,
+    rgba(107, 50, 161, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endColorstr="#6b32a1",GradientType=1);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+}
+
+/* Center Menu */
+.navbar-nav {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1; /* Center-align menu by allowing it to expand */
+}
+
+.navbar-nav .nav-item {
+  margin: 0 15px;
+}
+
+.navbar-nav .nav-link {
+  color: #f8f9fa;
+  font-size: 18px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link.active {
+  font-weight: bold;
+  color: #007bff;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #007bff;
+}
+
+/* Logout Button */
+.navbar-logout {
+  margin-left: auto; /* Posisikan Logout di kanan */
+}
+
+.navbar-logout .nav-link {
+  color: #f8f9fa;
+  font-size: 18px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navbar-logout .nav-link:hover {
+  color: #dc3545; /* Highlight Logout dengan warna merah saat hover */
+}
+
+.navbar-logout .fas {
+  margin-right: 5px;
+}
+
+/* Video Background */
+video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  filter: brightness(50%);
+}
+
+/* Login Container */
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Login Card */
+.login-card {
+  background: rgba(255, 255, 255, 0.5); /* Menambah kecerahan latar belakang */
+  backdrop-filter: blur(8px); /* Menyesuaikan efek frosted glass */
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Menurunkan bayangan sedikit agar lebih terang */
+  max-width: 400px;
+  text-align: center;
+  animation: fadeIn 1s ease-in-out; /* Entry animation */
+}
+
+/* Avatar */
+.avatar img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 4px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.avatar img:hover {
+  transform: scale(1.1); /* Slight zoom on hover */
+}
+
+/* Headings */
+h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #333; /* Menambahkan warna gelap untuk kontras */
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+h3 {
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-bottom: 2rem;
+  color: #555; /* Memberikan warna gelap agar lebih jelas */
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Input Group */
+.input-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.input-group-text {
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.4
+  ); /* Transparansi lebih tinggi untuk ikon */
+  border: none;
+  color: #333;
+}
+
+.input-group .form-control {
+  background: rgba(255, 255, 255, 0.3); /* Background input lebih terang */
+  border: none;
+  color: #333;
+  padding: 0.75rem;
+  border-radius: 10px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-group .form-control:focus {
+  background: rgba(255, 255, 255, 0.4); /* Menambah transparansi saat fokus */
+  outline: none;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+/* Button */
+.btn-login {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(90deg, #6a11cb, #2575fc);
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-login:hover {
+  background: linear-gradient(90deg, #5a10b1, #1c6ad6);
+  transform: translateY(-3px);
+}
+
+/* Link */
+p a {
+  color: #fff;
+  text-decoration: underline;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+p a:hover {
+  color: #add8e6;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .login-card {
+    padding: 1.5rem;
+  }
+}
+
+/* Video Background */
+video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  filter: brightness(50%);
+}
+
+/* Container untuk Login dan Sign Up */
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Login Card (Digunakan untuk Sign Up dan Login) */
+.login-card {
+  background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+  backdrop-filter: blur(10px); /* Frosted glass effect */
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  max-width: 400px;
+  text-align: center;
+  animation: fadeIn 1s ease-in-out; /* Entry animation */
+}
+
+/* Avatar */
+.avatar img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 4px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.avatar img:hover {
+  transform: scale(1.1); /* Slight zoom on hover */
+}
+
+/* Headings */
+h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+h3 {
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-bottom: 2rem;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Input Group */
+.textbox {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.textbox input {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.textbox input:focus {
+  background: rgba(255, 255, 255, 0.3);
+  outline: none;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
+.textbox span {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 1.2rem;
+  pointer-events: none;
+}
+
+/* Button */
+.btn-signup {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(90deg, #6a11cb, #2575fc);
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+  background: linear-gradient(90deg, #5a10b1, #1c6ad6);
+  transform: translateY(-3px);
+}
+
+/* Link */
+p a {
+  color: #fff;
+  text-decoration: underline;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+p a:hover {
+  color: #add8e6;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .login-card {
+    padding: 1.5rem;
+  }
+}
+
+.container-todo {
+  background: rgb(240,240,240);
+  background: -moz-radial-gradient(circle, rgba(240,240,240,1) 0%, rgba(37,174,175,1) 100%);
+  background: -webkit-radial-gradient(circle, rgba(240,240,240,1) 0%, rgba(37,174,175,1) 100%);
+  background: radial-gradient(circle, rgba(240,240,240,1) 0%, rgba(37,174,175,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f0f0f0",endColorstr="#25aeaf",GradientType=1);
+  max-width: 95%;
+  margin: auto;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.btn-primary {
+  font-weight: bold;
+  background-color: #007bff;
+  border-color: #007bff;
+  font-weight: bold;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.card {
+  background: #fefefe;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  width: 100%;
+  max-width: 300px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  border-color: #007bff; /* Optional: Change border color on hover */
+}
+
+/* Title Styling Inside Card */
+.todo-card h5 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Optional: Add a hover effect to buttons inside the card */
+.todo-card .btn {
+  font-size: 0.9rem;
+  margin-right: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.todo-card .btn:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Responsif untuk grid */
+@media (max-width: 576px) {
+  .col-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+/* Modal styling */
+.modal-content {
+  border-radius: 10px;
+}
+
+.form-group label {
+  font-weight: bold;
+  color: #495057;
+}
+
+.form-control {
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+}
+
+.btn-close {
+  outline: none;
+  border: none;
+}
+
+@media (min-width: 992px) {
+  .slick-slideshow {
+    height: 100vh;
+  }
+}
+
+.slick-slideshow {
+  margin-top: 86px;
+}
+
+.slick-title {
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+}
+
+.container-home {
+  background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+  backdrop-filter: blur(10px); /* Frosted glass effect */
+  max-width: 95%;
+  margin: auto;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+
+
+/* CSS untuk gambar poster */
+.gambar.poster img {
+  max-width: 100%;
+  height: 700px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+  margin-top: 20px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.gambar.poster img:hover {
+  transform: scale(1.05);
+}
+
+/* Style untuk paragraf */
+.paragraph-container {
+  margin-top: 20px; /* Jarak atas dari paragraf */
+}
+
+.paragraph-container p {
+  font-size: 1.2rem; /* Ukuran font paragraf */
+  line-height: 1.6; /* Tinggi baris paragraf */
+  color: #333; /* Warna teks paragraf */
+  margin-bottom: 20px; /* Jarak bawah dari paragraf */
+}
+
+/* Style untuk tombol Mulai Nonton */
+.paragraph-container .btn {
+  font-size: 1.1rem; /* Ukuran font tombol */
+  padding: 10px 20px; /* Padding tombol */
+}
+
+/* Footer Styling */
+footer {
+  background-color: grey; /* Warna latar belakang footer */
+  padding: 20px 10px;
+  border-top: 1px solid #ddd;
+  margin-top: 30px;
+  box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+footer p {
+  margin: 0;
+  font-size: 1rem;
+  color: #fff; /* Warna teks */
+  font-style: italic;
+}
+
+footer p:hover {
+  color: #007bff; /* Warna teks saat hover */
+  text-decoration: underline; /* Efek garis bawah pada hover */
+  transition: color 0.3s ease;
+}
+
+.table-header {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+.btn-delete {
+  background: none;
+  border: none;
+  color: #dc3545;
+  cursor: pointer;
+}
+.btn-delete:hover {
+  color: #bd2130;
+}
+.rounded-pill {
+  background-color: #000;
+  color: #fff;
+  padding: 0.2rem 0.5rem;
+}
+
