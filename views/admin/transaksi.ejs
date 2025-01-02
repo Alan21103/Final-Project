@@ -1,165 +1,118 @@
 <style>
     body {
+        background-color: #ffffff;
         font-family: Arial, sans-serif;
-        background-color: #f3f3f3; /* Abu-abu terang */
-        margin: 0;
-        padding: 0;
     }
-
     .container {
-        max-width: 900px;
-        margin: 50px auto;
-        padding: 20px;
-        background-color: #fff; /* Putih */
-        border-radius: 15px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-top: 100px;
+        max-width: 1200px;
     }
 
-    .title {
-        text-align: center;
-        font-size: 24px;
+    .header-transaksi-bundling {
+        text-align: left;
+        /* Teks rata kiri */
+        margin-bottom: 10px;
+        /* Jarak bawah */
+        padding: 10px;
+        /* Padding */
+        background-color: #ffffff;
+        /* Warna latar belakang (opsional) */
+        border-bottom: 5px solid #FF7F50;
+        /* Garis bawah (opsional) */
+    }
+
+    .header-transaksi-bundling h1 {
+        font-size: 2rem;
+        /* Ukuran font */
         font-weight: bold;
+        /* Tebal font */
         color: #333;
-        margin-bottom: 20px;
+        /* Warna teks */
+        /* Hilangkan margin default */
     }
 
-    /* Search Bar */
     .search-bar {
+        background-color: #e9ecef;
+        border-radius: 50px;
+        padding: 10px 20px;
         display: flex;
         align-items: center;
-        background-color: #e9ecef;
-        border-radius: 25px;
-        padding: 10px 20px;
-        margin-bottom: 20px;
     }
-
-    .search-bar i {
-        font-size: 1.2rem;
-        color: #666;
-        margin-right: 10px;
-    }
-
     .search-bar input {
         border: none;
-        background: transparent;
+        background: none;
         outline: none;
-        flex: 1;
-        font-size: 1rem;
-        color: #333;
-    }
-
-    /* Tabel */
-    .table {
         width: 100%;
-        border-collapse: collapse;
+        padding-left: 10px;
+    }
+    .table-container {
         background-color: #fff;
-        border-radius: 10px;
-        overflow: hidden;
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
-
-    .table thead {
-        background-color: #e9ecef;
-    }
-
     .table th, .table td {
-        text-align: center;
-        padding: 15px;
-        border-bottom: 1px solid #ddd;
+        vertical-align: middle;
     }
-
-    .table th {
-        font-size: 14px;
-        color: #555;
-    }
-
-    .table tbody tr {
-        transition: background-color 0.2s ease;
-    }
-
-    .table tbody tr:hover {
-        background-color: #f8f9fa;
-    }
-
-    .table tbody tr td {
-        font-size: 14px;
-        color: #333;
-    }
-
-    .type-label {
-        display: inline-block;
-        padding: 5px 15px;
+    .badge-custom {
         background-color: #000;
         color: #fff;
-        border-radius: 50px;
-        font-size: 0.9rem;
+        padding: 5px 10px;
+        border-radius: 20px;
     }
-
-    /* Tombol Hapus */
-    .btn-delete {
-        border: none;
-        background: transparent;
-        color: #dc3545;
-        font-size: 1.2rem;
+    .fa-trash {
+        color: red;
         cursor: pointer;
-        transition: color 0.2s ease;
-    }
-
-    .btn-delete:hover {
-        color: #a71d2a;
-    }
-
-    /* Responsif */
-    @media (max-width: 768px) {
-        .table th, .table td {
-            font-size: 0.9rem;
-        }
-
-        .search-bar input {
-            font-size: 0.9rem;
-        }
     }
 </style>
-</head>
-<body>
+
 <div class="container">
-    <h2 class="title">LIST TRANSAKSI</h2>
-    <!-- Search Bar -->
-    <div class="search-bar">
-        <i class="bi bi-search"></i>
-        <input type="text" placeholder="Search Transaksi">
+    <div class="header-transaksi-bundling">
+        <h1>LIST TRANSAKSI</h1>
     </div>
-    <!-- Tabel -->
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>NAME</th>
-                <th>DATE</th>
-                <th>TYPE</th>
-                <th>TOTAL</th>
-                <th>ACTION</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>29739</td>
-                <td>IMRON ROS</td>
-                <td>20 AGUSTUS 2019</td>
-                <td><span class="type-label">PAKET 1</span></td>
-                <td>Rp 12.000,00</td>
-                <td><button class="btn-delete"><i class="bi bi-trash"></i></button></td>
-            </tr>
-            <tr>
-                <td>29740</td>
-                <td>ROY CIPENG</td>
-                <td>20 AGUSTUS 2019</td>
-                <td><span class="type-label">PAKET 1</span></td>
-                <td>Rp 14.000,00</td>
-                <td><button class="btn-delete"><i class="bi bi-trash"></i></button></td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="table-container mt-4">
+        <div class="search-bar mb-3">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search Transaksi">
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NAME</th>
+                    <th>DATE</th>
+                    <th>TYPE</th>
+                    <th>TOTAL</th>
+                    <th>ACTION</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>29739</td>
+                    <td>IMRON ROS</td>
+                    <td>20 AGUSTUS 2019</td>
+                    <td><span class="badge badge-custom">PAKET 1</span></td>
+                    <td>Rp 12.000,00</td>
+                    <td>
+                        <a href="/admin/delete" class="btn btn-delete">
+                            <i class="fas fa-trash"></i> <!-- Ikon trash dari Font Awesome -->
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>29740</td>
+                    <td>ROY CIPENG</td>
+                    <td>20 AGUSTUS 2019</td>
+                    <td><span class="badge badge-custom">PAKET 1</span></td>
+                    <td>Rp 14.000,00</td>
+                    <td>
+                        <a href="/admin/delete" class="btn btn-delete">
+                            <i class="fas fa-trash"></i> <!-- Ikon trash dari Font Awesome -->
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<!-- Icon Library -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>

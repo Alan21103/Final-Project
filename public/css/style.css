@@ -1,7 +1,7 @@
 /* Navbar Styling */
 .navbar {
   background: rgb(0, 0, 0);
-  background-color: #778899;
+  background-color: black;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endColorstr="#6b32a1",GradientType=1);
   padding: 10px 20px;
   display: flex;
@@ -34,11 +34,11 @@
 
 .navbar-nav .nav-link.active {
   font-weight: bold;
-  color: #007bff;
+  color: #FF7F50;
 }
 
 .navbar-nav .nav-link:hover {
-  color: #007bff;
+  color: #FF7F50;
 }
 
 /* Logout Button */
@@ -319,11 +319,6 @@ h3 {
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.btn:hover {
-  background: linear-gradient(90deg, #5a10b1, #1c6ad6);
-  transform: translateY(-3px);
-}
-
 /* Link */
 p a {
   color: #fff;
@@ -366,35 +361,6 @@ p a:hover {
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-}
-
-.btn-primary {
-  font-weight: bold;
-  background-color: #007bff;
-  border-color: #007bff;
-  font-weight: bold;
-}
-
-.btn-primary:hover {
-  background-color: #0056b3;
-  border-color: #0056b3;
-}
-
-.card {
-  background: #fefefe;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 15px;
-  width: 100%;
-  max-width: 300px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-  border-color: #007bff; /* Optional: Change border color on hover */
 }
 
 /* Title Styling Inside Card */

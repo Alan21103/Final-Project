@@ -1,122 +1,162 @@
 <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 20px auto;
-      padding: 20px;
-      background: #fff;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-    }
-
-    .header {
-      display: flex;
-      align-items: center;
-    }
-
-    .back {
-      font-size: 20px;
-      margin-right: 10px;
-      cursor: pointer;
+        font-family: Arial, sans-serif;
     }
 
     .title {
-      font-size: 24px;
-      font-weight: bold;
+        text-align: left;
+        /* Teks rata kiri */
+        margin-top: 10vh;
+        /* Jarak bawah */
+        padding: 5px;
+        /* Padding */
+        background-color: #ffffff;
+        /* Warna latar belakang (opsional) */
+        border-bottom: 5px solid #FF7F50;
+        /* Garis bawah (opsional) */
     }
+
+    .title h1 {
+        font-size: 2rem;
+        /* Ukuran font */
+        font-weight: bold;
+        /* Tebal font */
+        color: #333;
+         /* Warna teks */
+     
+       
+        /* Hilangkan margin default */
+    }
+
+    .btn-link {
+        display: inline-block;
+        /* Membuat elemen inline-block agar bisa diatur padding dan margin */
+        padding: 10px 20px;
+        /* Padding atas-bawah 10px, kiri-kanan 20px */
+        font-size: 1rem;
+        /* Ukuran font */
+        font-weight: bold;
+        /* Tebal font */
+        color: #fff;
+        /* Warna teks */
+        background-color: #FF7F50;
+        /* Warna latar belakang */
+        border-radius: 5px;
+        /* Sudut melengkung */
+        text-decoration: none;
+        /* Hilangkan underline default */
+        text-align: center;
+        /* Pusatkan teks */
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        /* Efek transisi */
+        cursor: pointer;
+        /* Ubah kursor menjadi pointer */
+    }
+
+    .btn-link:hover {
+        background-color: white;
+        color: #000;
+    }
+
+
+    .container {
+        margin-top: 20px;
+        max-width: 1200px;
+    }
+
 
     .card {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-      padding: 20px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
+        margin: 30px auto;
+        padding: 30px;
+        max-width: 1200px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    .image-placeholder {
-      width: 100px;
-      height: 100px;
-      background: #eaeaea;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 8px;
+    .card img {
+        max-width: 100%;
+        height: auto;
+        width: auto;
     }
 
-    .content {
-      flex-grow: 1;
-      margin-left: 20px;
+    .card-body {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
-    .content h3 {
-      margin: 0;
+    .card-body .details {
+        flex: 1;
+        margin-left: 20px;
     }
 
-    .delete-btn {
-      padding: 10px 20px;
-      background: #000;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
+    .card-body .details h5 {
+        font-size: 24px;
+        font-weight: bold;
     }
 
-    .delete-btn:hover {
-      background: #444;
+    .card-body .details .id {
+        background-color: #d4edda;
+        color: #155724;
+        padding: 5px 10px;
+        border-radius: 5px;
+        display: inline-block;
+        margin-bottom: 10px;
     }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="header">
-      <span class="back">&larr;</span>
-      <div class="title">DELETE TRANSAKSI</div>
+
+    .card-body .details .delete-btn {
+        background-color: #000;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .card-footer {
+        text-align: right;
+        font-size: 14px;
+        color: #6c757d;
+    }
+</style>
+
+<div class="container">
+    <div class="btn-link">
+        <a href="/admin/transaksi" class="fas fa-arrow-left" style="text-decoration: none; color: inherit;">
+        </a>
+    </div>
+    <div class="title">
+        <h1>DELETE TRANSAKSI</h1>
     </div>
     <div class="card">
-      <div class="image-placeholder">
-        <img src="#" alt="Image" style="display: none;">
-      </div>
-      <div class="content">
-        <h3>PAKET 1</h3>
-        <p>ID: <span id="id">#29739</span></p>
-        <p>Nama: <span id="name">Imron Rosady</span></p>
-        <p>Tanggal: <span id="date">20 Agustus 2019</span></p>
-      </div>
-      <button class="delete-btn" onclick="deleteTransaction()">DELETE</button>
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img alt="Placeholder image for transaction package" class="img-fluid rounded-start" height="400"
+                    src="/image/bilderboken-rlwE8f8anOc-unsplash.jpg" width="500" />
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <div class="details">
+                        <h5 class="card-title">
+                            PAKET 1
+                        </h5>
+                        <div class="id">
+                            ID
+                        </div>
+                        <h5 class="card-title">
+                            #29739
+                        </h5>
+                        <p class="card-text">
+                            IMRON ROSADY
+                        </p>
+                        <button class="delete-btn">
+                            DELETE
+                        </button>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    20 Agustus 2019
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-
-  <script>
-    async function fetchTransaction() {
-      const response = await fetch('/api/transaction'); // Ganti dengan endpoint server Anda
-      const data = await response.json();
-
-      // Update UI
-      document.getElementById('id').textContent = `#${data.id}`;
-      document.getElementById('name').textContent = data.name;
-      document.getElementById('date').textContent = data.date;
-    }
-
-    async function deleteTransaction() {
-      const transactionId = document.getElementById('id').textContent.slice(1);
-
-      const response = await fetch(`/api/transaction/${transactionId}`, {
-        method: 'DELETE',
-      });
-
-      if (response.ok) {
-        alert('Transaction deleted successfully');
-      } else {
-        alert('Failed to delete transaction');
-      }
-    }
-
-    fetchTransaction();
-  </script>
+</div>

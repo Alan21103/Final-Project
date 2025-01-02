@@ -50,6 +50,18 @@ app.get('/admin/bundling', isAuthenticated, (req, res) => {
     });
 });
 
+app.get('/admin/delete', isAuthenticated, (req, res) => {
+    res.render('admin/delete', {
+        layout: 'layouts/main-layouts.ejs'
+    });
+});
+
+app.get('/admin/createbundling', isAuthenticated, (req, res) => {
+    res.render('admin/createbundling', {
+        layout: 'layouts/main-layouts.ejs'
+    });
+});
+
 app.get('/', isAuthenticated, (req, res) => {
     res.render('customer/index', {
         layout: 'layouts/main-layouts.ejs'
