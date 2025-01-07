@@ -5,52 +5,30 @@
 
     .title {
         text-align: left;
-
         margin-top: 10vh;
-        /* Jarak bawah */
         padding: 5px;
-        /* Padding */
         background-color: #ffffff;
-        /* Warna latar belakang (opsional) */
         border-bottom: 5px solid #FF7F50;
-        /* Garis bawah (opsional) */
     }
 
     .title h1 {
         font-size: 2rem;
-        /* Ukuran font */
         font-weight: bold;
-        /* Tebal font */
         color: #333;
-         /* Warna teks */
-     
-       
-        /* Hilangkan margin default */
     }
 
     .btn-link {
         display: inline-block;
-        /* Membuat elemen inline-block agar bisa diatur padding dan margin */
         padding: 10px 20px;
-        /* Padding atas-bawah 10px, kiri-kanan 20px */
         font-size: 1rem;
-        /* Ukuran font */
         font-weight: bold;
-        /* Tebal font */
         color: #fff;
-        /* Warna teks */
         background-color: #FF7F50;
-        /* Warna latar belakang */
         border-radius: 5px;
-        /* Sudut melengkung */
         text-decoration: none;
-        /* Hilangkan underline default */
         text-align: center;
-        /* Pusatkan teks */
         transition: background-color 0.3s ease, transform 0.2s ease;
-        /* Efek transisi */
         cursor: pointer;
-        /* Ubah kursor menjadi pointer */
     }
 
     .btn-link:hover {
@@ -58,12 +36,10 @@
         color: #000;
     }
 
-
     .container {
         margin-top: 20px;
         max-width: 1200px;
     }
-
 
     .card {
         margin: 30px auto;
@@ -81,7 +57,7 @@
     }
 
     .card-body {
-        display: flex;
+display: flex;
         flex-direction: column;
         justify-content: center;
         flex: 1;
@@ -107,7 +83,7 @@
     }
 
     .card-body .details .delete-btn {
-        background-color: #000;
+        background-color: #dc3545;
         color: #fff;
         border: none;
         padding: 10px 20px;
@@ -122,48 +98,93 @@
         color: #6c757d;
     }
 </style>
-
+</head>
+<body>
 <div class="container">
     <div class="btn-link">
-        <a href="/" class="fas fa-arrow-left" style="text-decoration: none; color: inherit;">
-        </a>
+        <a href="/" class="fas fa-arrow-left" style="text-decoration: none; color: inherit;"></a>
     </div>
     <div class="title">
         <h1>DELETE TRANSAKSI</h1>
     </div>
-    <div class="card">
-        <div class="row g-0">
-            <div class="col-md-4">
-                <img alt="Placeholder image for transaction package" class="img-fluid rounded-start" height="400"
-                    src="/image/bilderboken-rlwE8f8anOc-unsplash.jpg" width="500" />
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <div class="details">
-                        <h5 class="card-title">
-                            PAKET 1
-                        </h5>
-                        <div class="id">
-                            ID
-                        </div>
-                        <h5 class="card-title">
-                            #29739
-                        </h5>
-                        <p class="card-text">
-                            IMRON ROSADY
-                        </p>
-                        <h5 class="card-title">
-                            Rp189.000
-                        </h5>
-                        <button class="delete-btn">
-                            DELETE
-                        </button>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    20 Agustus 2019
-                </div>
-            </div>
-        </div>
+    <div class="card" id="transaction-card">
+        <!-- Data transaksi akan dimuat di sini -->
     </div>
 </div>
+
+<script>
+    // Ambil ID transaksi dari URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const transaksiID = urlParams.get('id');
+
+    // Fungsi untuk menampilkan data transaksi
+    function loadTransactionData() {
+        console.log('Transaksi ID:', transaksiID); // Debugging
+        if (!transaksiID) {
+            document.getElementById('transaction-card').innerHTML = '<p>ID transaksi tidak ditemukan.</p>';
+            return;
+        }
+        fetch(`http://localhost:3000/admin/transaksi/${transaksiID}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(transaction => {
+                const transactionCard = document.getElementById('transaction-card');
+
+                // Menampilkan detail transaksi
+                transactionCard.innerHTML = `
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img alt="Bukti Pembayaran" class="img-fluid rounded-start" height="400"
+                                src="http://localhost:3000/uploads/${transaction.Bukti_Pembayaran}" width="500" />
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <div class="details">
+                                    <h5 class="card-title">PAKET ${transaction.ID_Paket}</h5>
+                                    <div class="id">ID</div>
+                                    <h5 class="card-title">#${transaction.ID_Transaksi}</h5>
+                                    <p class="card-text">${transaction.id}</p>
+                                    <h5 class="card-title">Rp ${transaction.Jumlah_Pembayaran.toLocaleString()}</h5>
+                                    <button class="delete-btn" onclick="deleteTransaction()">DELETE</button>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                ${new Date(transaction.Tanggal).toLocaleDateString()}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                document.getElementById('transaction-card').innerHTML = '<p>Data transaksi tidak ditemukan.</p>';
+            });
+    }
+
+    // Fungsi untuk menghapus transaksi
+    function deleteTransaction() {
+        if (confirm('Apakah Anda yakin ingin menghapus transaksi ini?')) {
+            fetch(`http://localhost:3000/admin/delete/${transaksiID}`, {
+                method: 'DELETE',
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Transaksi berhasil dihapus');
+                    window.location.href = '/admin/transaksi'; // Redirect ke halaman daftar transaksi
+                } else {
+                    alert('Terjadi kesalahan saat menghapus transaksi');
+                }
+            })
+            .catch(error => {
+                console.error('Error deleting transaction:', error);
+            });
+        }
+    }
+
+    // Muat data transaksi saat halaman dimuat
+    window.onload = loadTransactionData;
+</script>

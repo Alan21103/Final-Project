@@ -11,25 +11,16 @@
 
     .header-transaksi-bundling {
         text-align: left;
-        /* Teks rata kiri */
         margin-bottom: 10px;
-        /* Jarak bawah */
         padding: 10px;
-        /* Padding */
         background-color: #ffffff;
-        /* Warna latar belakang (opsional) */
         border-bottom: 5px solid #FF7F50;
-        /* Garis bawah (opsional) */
     }
 
     .header-transaksi-bundling h1 {
         font-size: 2rem;
-        /* Ukuran font */
         font-weight: bold;
-        /* Tebal font */
         color: #333;
-        /* Warna teks */
-        /* Hilangkan margin default */
     }
 
     .search-bar {
@@ -60,19 +51,13 @@
         vertical-align: middle;
     }
 
-    .badge-custom {
-        background-color: #000;
-        color: #fff;
-        padding: 5px 10px;
-        border-radius: 20px;
-    }
-
     .fa-trash {
         color: red;
         cursor: pointer;
     }
 </style>
-
+</head>
+<body>
 <div class="container">
     <div class="header-transaksi-bundling">
         <h1>LIST TRANSAKSI</h1>
@@ -88,7 +73,7 @@
                     <th>ID Transaksi</th>
                     <th>ID</th>
                     <th>ID Paket</th>
-                    <th>Jumlah Pembayaran</th>
+<th>Jumlah Pembayaran</th>
                     <th>Bukti Pembayaran</th>
                     <th>ACTION</th>
                 </tr>
@@ -113,7 +98,7 @@
                     const formattedTotal = `Rp ${Number(transaction.Jumlah_Pembayaran).toLocaleString()}`;
 
                     // URL untuk gambar bukti pembayaran
-                    const imageUrl = `http://localhost:3000/${transaction.Bukti_Pembayaran}`;
+                    const imageUrl = `http://localhost:3000/uploads/${transaction.Bukti_Pembayaran}`;
 
                     // Tambahkan baris ke tabel
                     const row = `
@@ -128,7 +113,7 @@
                                  onclick="window.open('${imageUrl}', '_blank')">
                         </td>
                         <td>
-                            <a href="/admin/delete" class="btn btn-delete">
+                            <a href="/admin/delete?id=${transaction.ID_Transaksi}" class="btn btn-delete">
                                 <i class="fas fa-trash"></i>
                             </a>
                         </td>
@@ -146,4 +131,22 @@
     window.onload = function () {
         getTransactions();
     };
+
+    // Fitur pencarian
+    document.getElementById('search-input').addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        const rows = document.querySelectorAll('#transaction-table-body tr');
+
+        rows.forEach(row => {
+            const idTransaksi = row.cells[0].textContent.toLowerCase();
+            const id = row.cells[1].textContent.toLowerCase();
+            const idPaket = row.cells[2].textContent.toLowerCase();
+
+            if (idTransaksi.includes(searchTerm) || id.includes(searchTerm) || idPaket.includes(searchTerm)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
 </script>

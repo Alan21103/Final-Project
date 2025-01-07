@@ -26,6 +26,22 @@ app.use('/transaksi', transaksiRoutes);
 
 app.use(express.urlencoded({ extended: true }));
 
+// Menghapus transaksi berdasarkan ID
+app.delete('/admin/delete/:id', (req, res) => {
+    const transaksiID = req.params.id;
+
+    // Query untuk menghapus transaksi dari database
+    const query = 'DELETE FROM transaksi WHERE ID_Transaksi = ?';
+    
+    db.query(query, [transaksiID], (err, result) => {
+        if (err) {
+            return res.status(500).send('Terjadi kesalahan saat menghapus transaksi');
+        }
+
+        res.send('Transaksi berhasil dihapus');
+    });
+});
+
 // Konfigurasi express-session
 app.use(session({
     secret: process.env.SESSION_SECRET,
