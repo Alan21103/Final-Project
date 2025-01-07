@@ -1,5 +1,5 @@
 const express = require('express');
-const todoRoutes = require('./routes/tododb.js');
+const transaksiRoutes = require('./routes/transaksidb.js');
 const path = require('path');
 const app = express();
 require('dotenv').config();
@@ -12,7 +12,7 @@ const session = require('express-session');
 const authRoutes = require('./routes/authRoutes');
 const { isAuthenticated } = require('./middlewares/middleware.js');
 
-
+app.use('/uploads', express.static('uploads'));
 
 const expressLayout = require('express-ejs-layouts');
 
@@ -22,7 +22,7 @@ app.use(expressLayout);
 
 app.use(express.json());
 
-app.use('/todos', todoRoutes);
+app.use('/transaksi', transaksiRoutes);
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -34,37 +34,63 @@ app.use(session({
     cookie: { secure: false} // Set ke true jika menggunakan HTTPS
 }));
 
+app.get('/admin/transaksi', (req, res) => {
+    const query = 'SELECT * FROM transaksi'; // Query untuk mengambil data transaksi
+  
+    db.query(query, (err, results) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).send('Server error');
+      }
+  
+      res.json(results); // Kirim data transaksi ke frontend
+    });
+  });
+
 app.use('/', authRoutes);
 
 app.set('view engine', 'ejs');
 
 app.get('/admin/transaksi', isAuthenticated, (req, res) => {
     res.render('admin/transaksi', {
-        layout: 'layouts/main-layouts.ejs'
+        layout: 'layouts/main-layoutadmin.ejs'
     });
 });
 
 app.get('/admin/bundling', isAuthenticated, (req, res) => {
     res.render('admin/bundling', {
-        layout: 'layouts/main-layouts.ejs'
+        layout: 'layouts/main-layoutadmin.ejs'
+    });
+});
+
+app.get('/admin/editbundling', isAuthenticated, (req, res) => {
+    res.render('admin/editbundling', {
+        layout: 'layouts/main-layoutadmin.ejs'
     });
 });
 
 app.get('/admin/delete', isAuthenticated, (req, res) => {
     res.render('admin/delete', {
-        layout: 'layouts/main-layouts.ejs'
+        layout: 'layouts/main-layoutadmin.ejs'
     });
 });
 
 app.get('/admin/createbundling', isAuthenticated, (req, res) => {
     res.render('admin/createbundling', {
-        layout: 'layouts/main-layouts.ejs'
+        layout: 'layouts/main-layoutadmin.ejs'
+    });
+});
+
+
+app.get('/admin/deletebundling', isAuthenticated, (req, res) => {
+    res.render('admin/deletebundling', {
+        layout: 'layouts/main-layoutadmin.ejs'
     });
 });
 
 app.get('/', isAuthenticated, (req, res) => {
-    res.render('customer/index', {
-        layout: 'layouts/main-layouts.ejs'
+    res.render('admin/transaksi', {
+        layout: 'layouts/main-layoutadmin.ejs'
     });
 });
 

@@ -7,5 +7,15 @@ function isAuthenticated(req, res, next) {
     }
 }
 
+// Middleware untuk memeriksa apakah pengguna adalah admin
+function isAdmin(req, res, next) {
+    // Asumsikan bahwa peran admin disimpan dalam session sebagai req.session.role
+    if (req.session.role === 'admin') {
+        return next(); // Lanjutkan ke rute berikutnya jika admin
+    } else {
+        res.redirect('/'); // Alihkan ke halaman utama jika bukan admin
+    }
+}
 
-module.exports = { isAuthenticated };
+// Ekspor kedua middleware
+module.exports = { isAuthenticated, isAdmin };

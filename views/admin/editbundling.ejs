@@ -1,0 +1,185 @@
+<style>
+    body {
+        background-color: #ffffff;
+    }
+
+    .header-create-bundling {
+        text-align: left;
+        margin-top: 5vh;
+        padding: 10px;
+        background-color: #ffffff;
+        border-bottom: 5px solid #FF7F50;
+    }
+
+    .header-create-bundling h1 {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #333;
+        margin-left: 2vh;
+    }
+
+    .btn-link {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 1rem;
+        font-weight: bold;
+        color: #fff;
+        background-color: #FF7F50;
+        border-radius: 5px;
+        text-decoration: none;
+        text-align: center;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        cursor: pointer;
+    }
+
+    .btn-link:hover {
+        background-color: white;
+        color: #000;
+    }
+
+    .container {
+        margin-top: 20px;
+        max-width: 1200px;
+    }
+
+    .form-container {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-section {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    .form-left, .form-right {
+        flex: 1;
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+
+    .upload-box {
+        border: 2px dashed #000;
+        padding: 20px;
+        text-align: center;
+        border-radius: 10px;
+    }
+
+    .upload-box p {
+        margin: 0;
+    }
+
+    .btn-browse {
+        background-color: black;
+        color: white;
+        margin-top: 10px;
+    }
+
+    .btn-create {
+        background-color: black;
+        color: white;
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .route-buttons .btn {
+        background-color: white;
+        border: 1px solid #000;
+        border-radius: 20px;
+        margin: 5px;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="btn-link">
+                <a href="/admin/bundling" class="fas fa-arrow-left" style="text-decoration: none; color: inherit;">
+                </a>
+            </div>
+        </div>
+        <div class="header-create-bundling">
+            <h1>EDIT BUNDLING</h1>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="form-container">
+                <div class="form-section">
+                    <!-- Left Section -->
+                    <div class="form-left">
+                        <div class="mb-3">
+                            <label class="form-label" for="bundleName">
+                                Nama Bundle
+                            </label>
+                            <input class="form-control" id="bundleName" placeholder="Masukkan Nama Bundle" type="text" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="bundlePrice">
+                                Bundle Price
+                            </label>
+                            <input class="form-control" id="bundlePrice" placeholder="Masukkan Harga Bundle" type="text" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="description">
+                                Deskripsi
+                            </label>
+                            <input class="form-control" id="description" placeholder="Masukkan Deskripsi" type="text" />
+                        </div>
+                    </div>
+
+                    <!-- Right Section -->
+                    <div class="form-right">
+                        <div class="mb-3">
+                            <div class="upload-box">
+                                <p>
+                                    Drag and drop images here
+                                </p>
+                                <p>
+                                    Or click to upload from your computer
+                                </p>
+                                <button class="btn btn-browse">
+                                    Browse files
+                                </button>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Destinasi Route
+                            </label>
+                            <div class="route-buttons">
+                                <button class="btn">
+                                    Pulau Komodo
+                                </button>
+                                <button class="btn">
+                                    Bintan
+                                </button>
+                                <button class="btn">
+                                    Danau Toba
+                                </button>
+                                <button class="btn">
+                                    Labuan Bajo
+                                </button>
+                                <button class="btn">
+                                    Raja Ampat
+                                </button>
+                                <button class="btn">
+                                    Mandalika
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-create">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

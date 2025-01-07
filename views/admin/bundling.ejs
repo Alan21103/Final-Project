@@ -31,9 +31,9 @@
         font-weight: bold;
         /* Tebal font */
         color: #333;
-         /* Warna teks */
-        
-       
+        /* Warna teks */
+
+
         /* Hilangkan margin default */
     }
 
@@ -126,7 +126,7 @@
 </style>
 <div class="container">
     <div class="title">
-    <h1>VIEW BUNDLING</h1>
+        <h1>VIEW BUNDLING</h1>
     </div>
     <!-- Bundling Card 1 -->
     <div class="bundle-card">
@@ -139,8 +139,16 @@
         </div>
         <div class="bundle-price">Rp 189.000.00</div>
         <div class="bundle-actions">
-            <button><i class="bi bi-pencil"></i></button>
-            <button><i class="bi bi-trash"></i></button>
+            <button>
+                <a href="/admin/editbundling" class="btn btn-edit">
+                    <i class="bi bi-pencil"></i> <!-- Ikon trash dari Font Awesome -->
+                </a>
+            </button>
+            <button>
+                <a href="/admin/deletebundling" class="btn btn-delete">
+                    <i class="fas fa-trash"></i> <!-- Ikon trash dari Font Awesome -->
+                </a>
+            </button>
         </div>
     </div>
 
@@ -156,10 +164,15 @@
         <div class="bundle-price">Rp 189.000.00</div>
         <div class="bundle-actions">
             <button>
-                <i class="bi bi-pencil"></i>
+                <a href="/admin/editbundling" class="btn btn-edit">
+                    <i class="bi bi-pencil"></i> <!-- Ikon trash dari Font Awesome -->
+                </a>
             </button>
             <button>
-                <i class="bi bi-trash"></i></button>
+                <a href="/admin/deletebundling" class="btn btn-delete">
+                    <i class="fas fa-trash"></i> <!-- Ikon trash dari Font Awesome -->
+                </a>
+            </button>
         </div>
     </div>
 </div>
