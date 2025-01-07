@@ -1,5 +1,7 @@
 const express = require('express');
+const connection = require('./database/db.js'); // jika koneksi ada di file db.js
 const transaksiRoutes = require('./routes/transaksidb.js');
+const bundlingRoutes = require('./routes/bundlingdb.js')
 const path = require('path');
 const app = express();
 require('dotenv').config();
@@ -22,6 +24,8 @@ app.use(expressLayout);
 
 app.use(express.json());
 
+app.use('/bundling', bundlingRoutes);
+
 app.use('/transaksi', transaksiRoutes);
 
 app.use(express.urlencoded({ extended: true }));
@@ -39,6 +43,19 @@ app.delete('/admin/delete/:id', (req, res) => {
         }
 
         res.send('Transaksi berhasil dihapus');
+    });
+});
+
+app.get('/admin/bundling', (req, res) => {
+    connection.query('SELECT * FROM paketbundling', (err, results) => {
+        if (err) {
+            res.status(500).send('Database error');
+        } else {
+            // Mengirim data bundling ke halaman HTML (render menggunakan EJS)
+            res.render('admin/bundling', { data: results,
+                layout: 'layouts/main-layoutadmin.ejs'
+             });
+        }
     });
 });
 
@@ -98,9 +115,36 @@ app.get('/admin/createbundling', isAuthenticated, (req, res) => {
 });
 
 
-app.get('/admin/deletebundling', isAuthenticated, (req, res) => {
-    res.render('admin/deletebundling', {
-        layout: 'layouts/main-layoutadmin.ejs'
+// Rute untuk halaman delete bundling
+app.get('/admin/deletebundling/:id', isAuthenticated, (req, res) => {
+    const { id } = req.params;
+    connection.query('SELECT * FROM paketbundling WHERE ID_Paket = ?', [id], (err, results) => {
+        if (err) {
+            return res.status(500).send('Database error');
+        }
+        if (results.length === 0) {
+            return res.status(404).send('Bundling not found');
+        }
+        res.render('admin/deletebundling', {
+            bundling: results[0],
+            layout: 'layouts/main-layoutadmin.ejs'
+        });
+    });
+});
+
+app.get('/admin/editbundling/:id', isAuthenticated, (req, res) => {
+    const { id } = req.params;
+    connection.query('SELECT * FROM paketbundling WHERE ID_Paket = ?', [id], (err, results) => {
+        if (err) {
+            return res.status(500).send('Database error');
+        }
+        if (results.length === 0) {
+            return res.status(404).send('Bundling not found');
+        }
+        res.render('admin/editbundling', {
+            bundling: results[0],
+            layout: 'layouts/main-layoutadmin.ejs'
+        });
     });
 });
 

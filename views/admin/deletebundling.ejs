@@ -5,52 +5,30 @@
 
     .title {
         text-align: left;
-        /* Teks rata kiri */
         margin-top: 10vh;
-        /* Jarak bawah */
         padding: 5px;
-        /* Padding */
         background-color: #ffffff;
-        /* Warna latar belakang (opsional) */
         border-bottom: 5px solid #FF7F50;
-        /* Garis bawah (opsional) */
     }
 
     .title h1 {
         font-size: 2rem;
-        /* Ukuran font */
         font-weight: bold;
-        /* Tebal font */
         color: #333;
-         /* Warna teks */
-     
-       
-        /* Hilangkan margin default */
     }
 
     .btn-link {
         display: inline-block;
-        /* Membuat elemen inline-block agar bisa diatur padding dan margin */
         padding: 10px 20px;
-        /* Padding atas-bawah 10px, kiri-kanan 20px */
         font-size: 1rem;
-        /* Ukuran font */
         font-weight: bold;
-        /* Tebal font */
         color: #fff;
-        /* Warna teks */
         background-color: #FF7F50;
-        /* Warna latar belakang */
         border-radius: 5px;
-        /* Sudut melengkung */
         text-decoration: none;
-        /* Hilangkan underline default */
         text-align: center;
-        /* Pusatkan teks */
         transition: background-color 0.3s ease, transform 0.2s ease;
-        /* Efek transisi */
         cursor: pointer;
-        /* Ubah kursor menjadi pointer */
     }
 
     .btn-link:hover {
@@ -58,12 +36,10 @@
         color: #000;
     }
 
-
     .container {
         margin-top: 20px;
         max-width: 1200px;
     }
-
 
     .card {
         margin: 30px auto;
@@ -121,46 +97,130 @@
         font-size: 14px;
         color: #6c757d;
     }
+
+    .modal-header {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+
+    .modal-footer .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .modal-footer .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
 </style>
 
 <div class="container">
+    <!-- Kembali Button -->
     <div class="btn-link">
         <a href="/admin/bundling" class="fas fa-arrow-left" style="text-decoration: none; color: inherit;">
         </a>
     </div>
+
+    <!-- Judul Halaman -->
     <div class="title">
         <h1>DELETE BUNDLING</h1>
     </div>
+
+    <!-- Detail Bundling -->
     <div class="card">
         <div class="row g-0">
             <div class="col-md-4">
-                <img alt="Placeholder image for transaction package" class="img-fluid rounded-start" height="400"
-                    src="/image/bilderboken-rlwE8f8anOc-unsplash.jpg" width="500" />
+                <!-- Gambar Paket -->
+                <img alt="Gambar Paket" class="img-fluid rounded-start" height="400" src="<%= bundling.Gambar %>"
+                    width="500" />
             </div>
             <div class="col-md-8">
                 <div class="card-body">
                     <div class="details">
+                        <!-- Nama Paket -->
                         <h5 class="card-title">
-                            PAKET 1
+                            <%= bundling.Nama_paket %>
                         </h5>
+
+                        <!-- ID Paket -->
                         <div class="id">
-                            ID
+                            ID Paket
                         </div>
                         <h5 class="card-title">
-                            #29739
+                            <%= bundling.ID_Paket %>
                         </h5>
+
+                        <!-- Deskripsi Paket -->
                         <p class="card-text">
-                            IMRON ROSADY
+                            <%= bundling.Deskripsi %>
                         </p>
-                        <button class="delete-btn">
-                            DELETE
+                        <!-- Tombol Hapus -->
+                        <button type="button" class="btn btn-danger delete-btn" data-id="<%= bundling.ID_Paket %>"
+                            data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            <i class="bi bi-trash"></i> Hapus
                         </button>
                     </div>
-                </div>
-                <div class="card-footer">
-                    20 Agustus 2019
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Apakah Anda yakin ingin menghapus bundling ini?</p>
+                <p><strong>Nama Paket:</strong> <%= bundling.Nama_paket %></p>
+                <p><strong>Harga:</strong> <%= bundling.Harga %></p>
+                <p><strong>Deskripsi:</strong> <%= bundling.Deskripsi %></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Hapus</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom JavaScript -->
+<script>
+    let deleteId = null;
+
+    // Tangkap ID Paket saat tombol Hapus ditekan
+    document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', (event) => {
+            deleteId = event.target.closest('button').dataset.id;
+        });
+    });
+
+    // Konfirmasi hapus dari modal
+    document.getElementById('confirmDeleteBtn').addEventListener('click', () => {
+        if (deleteId) {
+            fetch(`/admin/deletebundling/${deleteId}`, {
+                method: 'POST',
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Bundling berhasil dihapus.');
+                        window.location.href = '/admin/bundling'; // Redirect ke halaman bundling
+                    } else {
+                        alert('Terjadi kesalahan saat menghapus bundling.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Terjadi kesalahan pada server.');
+                });
+        }
+    });
+</script>

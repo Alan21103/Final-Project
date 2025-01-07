@@ -3,6 +3,30 @@
         background-color: #ffffff;
     }
 
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        width: 400px;
+    }
+
+    .modal-actions button {
+        margin: 10px;
+    }
+
     .header-create-bundling {
         text-align: left;
         margin-top: 5vh;
@@ -57,7 +81,8 @@
         gap: 20px;
     }
 
-    .form-left, .form-right {
+    .form-left,
+    .form-right {
         flex: 1;
     }
 
@@ -108,78 +133,107 @@
             <h1>CREATE BUNDLING</h1>
         </div>
     </div>
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="form-container">
-                <div class="form-section">
-                    <!-- Left Section -->
-                    <div class="form-left">
-                        <div class="mb-3">
-                            <label class="form-label" for="bundleName">
-                                Nama Bundle
-                            </label>
-                            <input class="form-control" id="bundleName" placeholder="Masukkan Nama Bundle" type="text" />
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="bundlePrice">
-                                Bundle Price
-                            </label>
-                            <input class="form-control" id="bundlePrice" placeholder="Masukkan Harga Bundle" type="text" />
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="description">
-                                Deskripsi
-                            </label>
-                            <input class="form-control" id="description" placeholder="Masukkan Deskripsi" type="text" />
-                        </div>
-                    </div>
+    <form id="createBundleForm" class="form-container" enctype="multipart/form-data">
+        <div class="form-section">
+            <!-- Left Section -->
+            <div class="form-left">
+                <div class="mb-3">
+                    <label class="form-label" for="bundleName">
+                        Nama Bundle
+                    </label>
+                    <input class="form-control" id="bundleName" name="bundleName" placeholder="Masukkan Nama Bundle"
+                        type="text" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="bundlePrice">
+                        Bundle Price
+                    </label>
+                    <input class="form-control" id="bundlePrice" name="bundlePrice" placeholder="Masukkan Harga Bundle"
+                        type="number" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="description">
+                        Deskripsi
+                    </label>
+                    <textarea class="form-control" id="description" name="description" placeholder="Masukkan Deskripsi"
+                        required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="location">
+                        Lokasi
+                    </label>
+                    <textarea class="form-control" id="location" name="location" placeholder="Masukkan Lokasi"
+                        required></textarea>
+                </div>
+            </div>
 
-                    <!-- Right Section -->
-                    <div class="form-right">
-                        <div class="mb-3">
-                            <div class="upload-box">
-                                <p>
-                                    Drag and drop images here
-                                </p>
-                                <p>
-                                    Or click to upload from your computer
-                                </p>
-                                <button class="btn btn-browse">
-                                    Browse files
-                                </button>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">
-                                Destinasi Route
-                            </label>
-                            <div class="route-buttons">
-                                <button class="btn">
-                                    Pulau Komodo
-                                </button>
-                                <button class="btn">
-                                    Bintan
-                                </button>
-                                <button class="btn">
-                                    Danau Toba
-                                </button>
-                                <button class="btn">
-                                    Labuan Bajo
-                                </button>
-                                <button class="btn">
-                                    Raja Ampat
-                                </button>
-                                <button class="btn">
-                                    Mandalika
-                                </button>
-                            </div>
-                        </div>
+            <!-- Right Section -->
+            <div class="form-right">
+                <div class="mb-3">
+                    <div class="upload-box">
+                        <p>
+                            Drag and drop images here
+                        </p>
+                        <p>
+                            Or click to upload from your computer
+                        </p>
+                        <input class="form-control" type="file" name="image" accept="image/*" required />
                     </div>
                 </div>
-                <button class="btn btn-create">
-                    Create Bundle
-                </button>
+                <div class="mb-3">
+                    <label class="form-label">
+                        Destinasi Route
+                    </label>
+                    <select class="form-control" name="destination" required>
+                        <option value="Pulau Komodo">Pulau Komodo</option>
+                        <option value="Bintan">Bintan</option>
+                        <option value="Danau Toba">Danau Toba</option>
+                        <option value="Labuan Bajo">Labuan Bajo</option>
+                        <option value="Raja Ampat">Raja Ampat</option>
+                        <option value="Mandalika">Mandalika</option>
+                    </select>
+                </div>
             </div>
+        </div>
+        <button type="button" class="btn btn-create" id="openModalButton">
+            Create Bundle
+        </button>
+    </form>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="confirmationModal" style="display: none;">
+    <div class="modal-content">
+        <h2>Konfirmasi</h2>
+        <p>Apakah Anda yakin ingin membuat bundling ini?</p>
+        <div class="modal-actions">
+            <button class="btn btn-danger" id="cancelModalButton">Batal</button>
+            <button class="btn btn-success" id="submitFormButton">Ya, Lanjutkan</button>
         </div>
     </div>
 </div>
+
+<script>
+    // Modal Elements
+    const modal = document.getElementById('confirmationModal');
+    const openModalButton = document.getElementById('openModalButton');
+    const cancelModalButton = document.getElementById('cancelModalButton');
+    const submitFormButton = document.getElementById('submitFormButton');
+    const form = document.getElementById('createBundleForm');
+
+    // Open Modal
+    openModalButton.addEventListener('click', () => {
+        modal.style.display = 'flex';
+    });
+
+    // Close Modal
+    cancelModalButton.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    // Submit Form
+    submitFormButton.addEventListener('click', () => {
+        modal.style.display = 'none';
+        form.submit();
+    });
+</script>
